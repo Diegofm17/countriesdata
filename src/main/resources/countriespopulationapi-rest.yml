@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Countries Population API
+  description: "This API defines the operations to get and set countries population data."
+  contact:
+    email: diegofm17@gmail.com
+  version: 1.0.0
+servers:
+  - url: "https://localhost:8080"
+    description: "Local environment"
+
+tags:
+  - name: data
+    description: "Country data operations"
+
+paths:
+  /api/v1/data/country:
+    post:
+      tags:
+        - data
+      summary: "Add/Update country population"
+      description: "Add or update country data"
+      operationId: setData
+      requestBody:
+        description: "Country data"
+        required: true
+        content:
+          application/json:
+            schema:
+                items:
+                  $ref: '#/components/schemas/CountryPopulationDTO'
+                type: array
+      responses:
+        '204':
+          description: "No content"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    get:
+      tags:
+        - data
+      summary: "Get country data"
+      description: "Get country data"
+      operationId: getData
+      parameters:
+        - $ref: '#/components/parameters/Country'
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CountryPopulationDTO'
+                type: array
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
+
+components:
+  parameters:
+    Country:
+      name: country
+      in: query
+      description: "Country name"
+      schema:
+        type: string
+        nullable: true
+        pattern: '^(?!\s*$).+'
+      required: false
+      example: "Iceland"
+
+  schemas:
+    CountryPopulationDTO:
+      type: object
+      description: "Object that encapsulates country population data"
+      properties:
+        country:
+          type: string
+          description: "Country name"
+          example: "Bulgaria"
+        population:
+          type: integer
+          format: int64
+          description: "Country population"
+          example: 6927288
+
+    ErrorDTO:
+      type: object
+      description: "Object that encapsulates the details of a handled exception"
+      properties:
+        detail:
+          type: string
+          description: "Detail"
+
+  responses:
+    NoContent:
+      description: "No content"
+
+    BadRequest:
+      description: "Bad Request"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDTO'
+
+    InternalServerError:
+      description: "Internal server error"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDTO'
