@@ -1,10 +1,8 @@
 package com.diegofma.countriesdata.restclient;
 
-import com.diegofma.countriesdata.domain.entity.CountryPopulation;
 import com.diegofma.countriesdata.infraestructure.repository.country.CountryEntity;
 import com.diegofma.countriesdata.infraestructure.repository.country.CountryRepository;
 import com.diegofma.countriesdata.restclient.dto.CountryDTO;
-import com.diegofma.countriesdata.restclient.dto.NameDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;

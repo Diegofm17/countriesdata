@@ -35,7 +35,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"country\": \"Bulgaria\",\r\n  \"population\": 6927288\r\n}",
+					"raw": "[\r\n    {\r\n        \"country\": \"Bulgaria\",\r\n        \"population\": 6927288\r\n    }\r\n]",
 					"options": {
 						"raw": {
 							"language": "json"
